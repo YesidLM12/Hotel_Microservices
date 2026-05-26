@@ -4,8 +4,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 import java.util.List;
+
+import com.yesidl.hotel.common.Enums.TipoHabitacion;
+
 import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
@@ -29,8 +34,9 @@ public class Habitaciones {
     @Column(name = "numero_habitacion", nullable = false)
     private int numeroHabitacion;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "tipo", nullable = false)
-    private String tipo;
+    private TipoHabitacion tipo;
 
     @Column(name = "precio", nullable = false)
     private BigDecimal precio;

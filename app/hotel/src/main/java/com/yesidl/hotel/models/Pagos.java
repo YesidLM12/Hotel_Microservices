@@ -2,6 +2,8 @@ package com.yesidl.hotel.models;
 
 import java.math.BigDecimal;
 
+import com.yesidl.hotel.common.Enums.MetodoPago;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
@@ -10,6 +12,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
 @Table(name = "pagos")
@@ -20,8 +24,9 @@ public class Pagos {
     @Column(name = "referencia", nullable = false)
     private String referencia;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "metodo_pago", nullable = false)
-    private String metodoPago; 
+    private MetodoPago metodoPago; 
     
     @Column(name = "monto_recibido", nullable = false)
     private BigDecimal montoRecibido;
