@@ -4,37 +4,32 @@ CREATE TABLE huespedes
     nombre    varchar(255)             not null,
     apellido  varchar(255)             not null,
     edad      int                      not null,
-    genero    enum('M', 'F')           not null
+    genero    char(1)           not null
 );
 
 CREATE TABLE habitaciones
 (
     numero_habitacion int primary key not null,
     tipo              varchar(100)    not null,
-    estado            enum('disponible', 'ocupada')    not null,
-    precio            bigint          not null
+    estado            varchar(100)    not null,
+    precio            decimal(10,2)          not null
 );
 
 CREATE TABLE reservas
 (
-    id_reserva        int auto_increment(1000,1) primary key not null,
+    id_reserva        int auto_increment primary key not null,
     documento         varchar(100) not null,
     numero_habitacion int          not null,
     cantidad_personas int          not null,
     noches            int          not null,
     fecha_ingreso     date         not null,
     fecha_salida      date         not null,
-    codigo            varchar(100) not null,
-    total             bigint       not null,
-    primary key (documento, numero_habitacion),
+    total             decimal(10,2)       not null,
     foreign key (documento)
         references huespedes (documento)
         on delete cascade on update cascade,
     foreign key (numero_habitacion)
         references habitaciones (numero_habitacion)
-        on delete cascade on update cascade,
-    foreign key (codigo)
-        references servicios (codigo)
         on delete cascade on update cascade
 );
 
@@ -42,7 +37,7 @@ CREATE TABLE servicios
 (
     codigo    varchar(100) primary key not null,
     nombre    varchar(100)             not null,
-    precio    bigint                   not null,
+    precio    decimal(10,2)                     not null,
     id_reserva int                     not null,
     foreign key (id_reserva)
         references reservas (id_reserva)
@@ -52,9 +47,9 @@ CREATE TABLE servicios
 CREATE TABLE pagos
 (
     referencia     varchar(255) primary key not null,
-    metodo_pago    enum('efectivo', 't.credito', 't.debito', 'transferencia') not null,
-    monto_recibido bigint                   not null,
-    diferencia     bigint,
+    metodo_pago    varchar(100) not null,
+    monto_recibido decimal(10,2)                   not null,
+    diferencia     decimal(10,2),
     id_reserva     int                      not null,
     foreign key (id_reserva)
         references reservas (id_reserva)
@@ -63,13 +58,11 @@ CREATE TABLE pagos
 
 CREATE TABLE check_out
 (
-    id_reserva              varchar(100) not null,
-    pago_antes_descuento    bigint       not null,
-    descuentos              bigint,
-    pago_despues_descuentos bigint       not null,
-    primary key (id_reserva),
+    id_check_out            int auto_increment primary key not null,
+    id_reserva              int not null,
+    total_antes_descuento    decimal(10,2)      not null,
+    descuentos              decimal(10,2),
+    total_despues_descuento decimal(10,2)       not null,
     foreign key (id_reserva)
-        references huespedes (documento),
-    foreign key (referencia)
-        references pagos (referencia)
+        references reservas (id_reserva)
 );

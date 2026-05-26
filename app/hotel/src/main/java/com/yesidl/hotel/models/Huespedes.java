@@ -26,11 +26,10 @@ public class Huespedes {
     private int edad;
     
     @Column(name = "genero", nullable = false)
-    private String genero;
+    private char genero;
 
     @OneToMany(mappedBy = "huesped", cascade = CascadeType.ALL)
     private List<Reservas> reservas;
 
-    @OneToMany(mappedBy = "huesped", cascade = CascadeType.ALL)
-    private List<Servicios> servicios;
+  
 }

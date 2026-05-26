@@ -1,4 +1,5 @@
 package com.yesidl.hotel.models;
+import java.math.BigDecimal;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Column;
@@ -28,7 +29,7 @@ public class Servicios {
     private String nombre;
     
     @Column(name = "precio", nullable = false)
-    private double precio;
+    private BigDecimal precio;
 
     @ManyToOne
     @JoinColumn(name = "id_reserva", nullable = false)

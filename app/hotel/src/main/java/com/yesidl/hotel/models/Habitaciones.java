@@ -1,12 +1,12 @@
 package com.yesidl.hotel.models;
 
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
 
 import java.util.List;
+import java.math.BigDecimal;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Table;
@@ -28,17 +28,14 @@ public class Habitaciones {
     @Id
     @Column(name = "numero_habitacion", nullable = false)
     private int numeroHabitacion;
-    
-    @Column(name = "tipo_habitacion", nullable = false)
-    private String tipoHabitacion;
-    
-    @Column(name = "precio_noche", nullable = false)
-    private double precioNoche;
-    
-    @Column(name = "disponible", nullable = false)
-    private boolean disponible;
+
+    @Column(name = "tipo", nullable = false)
+    private String tipo;
+
+    @Column(name = "precio", nullable = false)
+    private BigDecimal precio;
 
     @OneToMany(mappedBy = "habitacion", cascade = CascadeType.ALL)
     private List<Reservas> reservas;
-    
+
 }

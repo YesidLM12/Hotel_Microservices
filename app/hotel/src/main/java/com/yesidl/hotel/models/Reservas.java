@@ -1,7 +1,8 @@
 package com.yesidl.hotel.models;
 
-import java.util.Date;
 import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -32,7 +34,7 @@ public class Reservas {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_reserva", nullable = false)
-    private String idReserva;
+    private int idReserva;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "numero_habitacion", referencedColumnName = "numero_habitacion")
@@ -49,17 +51,21 @@ public class Reservas {
     private int noches;
 
     @Column(name = "fecha_ingreso", nullable = false)
-    private Date fechaIngreso;
+    private LocalDate fechaIngreso;
 
     @Column(name = "fecha_salida", nullable = false)
-    private Date fechaSalida;
+    private LocalDate fechaSalida;
 
     @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL)
     private List<Servicios> servicios;
 
     @Column(name = "total", nullable = false)   
-    private double total;
+    private BigDecimal total;
 
     @OneToMany(mappedBy = "reserva", cascade = CascadeType.ALL)
     private List<Pagos> pagos;
+    
+    @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL)
+    private CheckOut checkOut;
 }
+
