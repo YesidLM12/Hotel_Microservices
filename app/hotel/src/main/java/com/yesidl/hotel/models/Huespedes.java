@@ -11,7 +11,15 @@ import jakarta.persistence.EnumType;
 import java.util.List;
 
 import com.yesidl.hotel.common.Enums.Genero;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "huespedes")
 public class Huespedes {
